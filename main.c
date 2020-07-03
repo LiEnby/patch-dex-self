@@ -23,14 +23,19 @@ int main(int argc, char** argv)
 		if (AuthID == 0x2f00000000000001)
 		{
 			AuthID = 0x2f00000000000101;
-			fseek(fd, 0x80, SEEK_SET);
-			fwrite(&AuthID, sizeof(unsigned long long), 1, fd);
-			printf("New Authid: %llx\n", AuthID);
+		}
+		else if (AuthID == 0x2f00000000000002)
+		{
+			AuthID = 0x2f00000000000102;
 		}
 		else
 		{
-			printf("Allready works on activated dev/test kit.\n");
+			printf("Already works on activated dev/test kit.\n");
+			return 1;
 		}
+		fseek(fd, 0x80, SEEK_SET);
+		fwrite(&AuthID, sizeof(unsigned long long), 1, fd);
+		printf("New Authid: %llx\n", AuthID);
 		fclose(fd);
 		return 0;
 	}
